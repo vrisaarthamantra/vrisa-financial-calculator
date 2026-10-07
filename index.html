@@ -1,11 +1,773 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#030303">
+<meta name="robots" content="noindex">
+<title>If Your Income Stops Today | Vrisa Artha Mantra</title>
+<link rel="icon" type="image/png" href="/favicon.ico">
+<style>
+  :root{
+    /* Brand kit */
+    --aqua:#6ACED9; --green:#87A644; --black:#030303; --red:#F23838; --grey:#808180;
+    /* Supporting tones (darker versions of the brand colours so small text stays readable) */
+    --aqua-soft:#E6F7F9; --green-soft:#EEF4E0; --red-soft:#FDECEC;
+    --green-ink:#587426; --teal-ink:#17707A; --red-ink:#C21F1F; --ink-soft:#5A5B5A;
+    --bg:#F4F8F9; --card:#FFFFFF; --line:#DCE6E8; --field-line:#C4D2D5;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:Calibri,"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--black);line-height:1.5;font-size:16px}
+  [hidden]{display:none!important}
+  .wrap{max-width:640px;margin:0 auto;padding:14px 16px 40px}
+
+  /* ---------- Header ---------- */
+  .hero{background:var(--black);color:#fff;border-radius:var(--radius);padding:22px 20px 24px;text-align:center;border-bottom:4px solid var(--aqua)}
+  .brand{font-family:Cambria,Georgia,serif;font-size:21px;letter-spacing:1px}
+  .tagline{color:var(--aqua);font-size:14px;margin-top:2px}
+  .hero h1{font-family:Cambria,Georgia,serif;font-weight:normal;font-size:25px;line-height:1.25;margin-top:14px}
+  .hero h1 em{font-style:normal;color:var(--aqua)}
+
+  /* ---------- Progress ---------- */
+  .progress{display:flex;gap:10px;list-style:none;margin-top:14px}
+  .progress li{flex:1;border-top:4px solid var(--line);padding-top:6px;font-size:13.5px;font-weight:600;color:var(--ink-soft)}
+  .progress li span{display:inline-block;width:20px;height:20px;line-height:20px;border-radius:50%;background:var(--line);color:var(--black);text-align:center;font-size:12px;margin-right:4px}
+  .progress li.on{border-color:var(--aqua);color:var(--black)}
+  .progress li.on span{background:var(--aqua)}
+  .progress li.done{border-color:var(--green);color:var(--black)}
+  .progress li.done span{background:var(--green)}
+
+  /* ---------- Cards & fields ---------- */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:14px}
+  .card h2{font-family:Cambria,Georgia,serif;font-size:20px;line-height:1.25}
+  .card .sub{color:var(--ink-soft);font-size:14.5px;margin-top:2px}
+  .field{margin-top:16px;border:0}
+  .grid-2{display:grid;grid-template-columns:1fr;gap:0 14px}
+  @media(min-width:560px){.grid-2{grid-template-columns:1fr 1fr}}
+  label,legend{display:block;font-size:15px;font-weight:600;margin-bottom:6px;padding:0}
+  .req{color:var(--red-ink)}
+  .opt{color:var(--ink-soft);font-weight:400;font-size:13.5px}
+  .tag{display:inline-block;background:var(--aqua-soft);color:var(--teal-ink);border-radius:20px;padding:1px 9px;font-size:12px;font-weight:700;margin-left:6px;vertical-align:1px}
+  input[type=text],input[type=tel],input[type=email],select{
+    width:100%;min-height:50px;padding:0 13px;border:1.5px solid var(--field-line);border-radius:12px;
+    background:#fff;color:var(--black);font:inherit;font-size:16px}
+  select{appearance:none;-webkit-appearance:none;padding-right:40px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'><path d='M1 1l6 6 6-6' fill='none' stroke='%23030303' stroke-width='2' stroke-linecap='round'/></svg>");
+    background-repeat:no-repeat;background-position:right 14px center}
+  input:focus,select:focus{outline:none;border-color:var(--aqua);box-shadow:0 0 0 3px rgba(106,206,217,.4)}
+  input[aria-invalid=true],select[aria-invalid=true]{border-color:var(--red);background:var(--red-soft)}
+  .money{position:relative}
+  .money .rs{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--ink-soft);pointer-events:none}
+  .money input{padding-left:30px}
+  .hint{font-size:13.5px;color:var(--ink-soft);margin-top:5px}
+  .live{font-size:14px;font-weight:700;color:var(--teal-ink);min-height:0;margin-top:4px}
+  .live:empty{display:none}
+  .err{font-size:13.5px;font-weight:600;color:var(--red-ink);margin-top:5px}
+  .err:empty{display:none}
+
+  /* ---------- Tap-to-select pills ---------- */
+  .pills{display:grid;gap:8px}
+  .pills.c2{grid-template-columns:repeat(2,1fr)}
+  .pills.c3{grid-template-columns:repeat(3,1fr)}
+  .pill{position:relative;margin:0;font-weight:600}
+  .pill input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .pill span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:50px;padding:6px 8px;border:1.5px solid var(--field-line);border-radius:12px;background:#fff;font-size:15.5px;line-height:1.2}
+  .pill input:checked + span{background:var(--black);color:#fff;border-color:var(--black);box-shadow:inset 0 -3px 0 var(--aqua)}
+  .pill input:focus-visible + span{outline:3px solid var(--aqua);outline-offset:2px}
+  .sep{height:1px;background:var(--line);margin:20px 0 0}
+
+  /* ---------- Consent & buttons ---------- */
+  .consent{display:flex;gap:12px;align-items:flex-start;font-weight:400;font-size:14.5px;line-height:1.45;margin:0;cursor:pointer}
+  .consent input{width:24px;height:24px;flex:none;margin-top:1px;accent-color:var(--green);cursor:pointer}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:56px;border:0;border-radius:14px;background:var(--green);color:var(--black);font:inherit;font-size:18px;font-weight:700;cursor:pointer;margin-top:16px}
+  .btn:hover{filter:brightness(1.05)}
+  .btn:focus-visible{outline:3px solid var(--aqua);outline-offset:3px}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .fine{font-size:13px;color:var(--ink-soft);text-align:center;margin-top:10px}
+
+  /* ---------- Step 2: hook + results ---------- */
+  .hook{background:var(--black);color:#fff;border-radius:var(--radius);padding:22px 20px;margin-top:14px;border-left:6px solid var(--aqua)}
+  .eyebrow{color:var(--aqua);font-size:12.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+  .hook h2{font-family:Cambria,Georgia,serif;font-weight:normal;font-size:24px;line-height:1.25;margin-top:6px;outline:none}
+  .hook p{margin-top:10px;color:#DDE6E8;font-size:15.5px}
+  .rtag{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;margin-bottom:8px}
+  .rtag .n{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--aqua);font-size:13px;flex:none}
+  .big{font-family:Cambria,Georgia,serif;font-weight:700;font-size:44px;line-height:1.1;margin:4px 0}
+  .big.short{color:var(--red)} .big.good{color:var(--green-ink)} .big.teal{color:var(--teal-ink)}
+  .big.mid{font-size:30px}
+  /* amount in words shown after the rupee figure, e.g. "32.4 Lakh" */
+  .amt-words{display:block;font-family:Calibri,"Segoe UI",system-ui,Arial,sans-serif;font-size:16px;font-weight:700;color:var(--ink-soft);margin-top:4px;line-height:1.2}
+  .amt-inline{font-weight:600;color:var(--ink-soft);font-size:13px;display:block}
+  .muted{color:var(--ink-soft);font-size:14.5px}
+  .tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .tile{background:var(--bg);border-radius:12px;padding:12px;text-align:center}
+  .tile .tl{display:block;font-size:13px;color:var(--ink-soft)}
+  .tile strong{display:block;font-size:20px;margin-top:2px}
+  .bar{height:14px;background:var(--line);border-radius:8px;overflow:hidden;margin-top:14px}
+  .bar span{display:block;height:100%;width:0;border-radius:8px;background:var(--red);transition:width .9s ease}
+  .bar span.good{background:var(--green)}
+  .verdict{font-weight:600;font-size:15px;margin-top:8px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
+  .pair .lbl{font-size:13.5px;color:var(--ink-soft)}
+  .assume{display:inline-block;background:var(--aqua);color:var(--black);border-radius:20px;padding:2px 11px;font-size:12.5px;font-weight:700}
+  .tablewrap{overflow-x:auto;margin-top:10px}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{padding:11px 8px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  th{background:var(--black);color:#fff;font-weight:600;font-size:13.5px}
+  tbody tr:nth-child(even) td{background:#FAFCFC}
+  .callout{background:var(--green-soft);border-radius:12px;padding:12px 14px;margin-top:12px;font-weight:600;font-size:15px}
+  .cta{background:var(--black);color:#fff;border-bottom:4px solid var(--green)}
+  .cta h2{color:#fff}
+  .cta p{color:#DDE6E8;margin-top:8px;font-size:15.5px}
+  .status{margin-top:14px;font-size:14px;color:#DDE6E8;background:rgba(255,255,255,.1);border-radius:10px;padding:9px 12px}
+  .status:empty{display:none}
+  .disc{font-size:12px;color:var(--ink-soft);margin-top:18px;text-align:center;line-height:1.5}
+
+  /* honeypot for Netlify spam protection: kept off-screen, not display:none */
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  @media(max-width:400px){
+    .hero h1{font-size:22px}.big{font-size:38px}.big.mid{font-size:27px}.pill span{font-size:14.5px}
+    .tiles,.pair{grid-template-columns:1fr}
+  }
+  @media(prefers-reduced-motion:reduce){.bar span{transition:none}}
+</style>
 </head>
 <body>
-    
+<div class="wrap">
+
+  <header class="hero">
+    <div class="brand">VRISA ARTHA MANTRA</div>
+    <div class="tagline">Money with Wisdom</div>
+    <h1>If your income stops <em>today</em>…<br>how long can you survive?</h1>
+  </header>
+
+  <ol class="progress" aria-label="Progress">
+    <li class="on" id="p1" aria-current="step"><span>1</span>Your answers</li>
+    <li id="p2"><span>2</span>Your reality check</li>
+  </ol>
+
+  <noscript><div class="card"><strong>Please turn on JavaScript</strong> to use this calculator.</div></noscript>
+
+  <!-- =====================================================================
+       STEP 1: THE SURVEY  (this is the Netlify form)
+       Netlify finds this form at deploy time through data-netlify="true".
+       The form is posted with fetch() from the script below.
+       ===================================================================== -->
+  <form name="financial-snapshot" id="surveyForm" method="POST" action="/"
+        data-netlify="true" netlify-honeypot="bot-field" novalidate>
+
+    <input type="hidden" name="form-name" value="financial-snapshot">
+    <p class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+
+    <!-- A. About you -->
+    <section class="card">
+      <h2>About you</h2>
+      <p class="sub">So our team can share your result with you.</p>
+
+      <div class="field">
+        <label for="owner">RM Name <span class="req" aria-hidden="true">*</span><span class="tag">Team use</span></label>
+        <select id="owner" name="lead_owner" aria-describedby="owner-err" required>
+          <option value="">Select member</option>
+          <option value="Satish">Satish</option>
+          <option value="Arati">Arati</option>
+          <option value="Rahul">Rahul</option>
+          <option value="Kusum">Kusum</option>
+          <option value="Sejal">Sejal</option>
+          <option value="Other">Other</option>
+        </select>
+        <div class="err" id="owner-err" role="alert"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="fullName">Full name <span class="req" aria-hidden="true">*</span></label>
+          <input id="fullName" name="full_name" type="text" autocomplete="name" placeholder="Your full name" aria-describedby="fullName-err" required>
+          <div class="err" id="fullName-err" role="alert"></div>
+        </div>
+        <div class="field">
+          <label for="phone">Mobile number <span class="req" aria-hidden="true">*</span></label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="10" placeholder="10-digit mobile number" aria-describedby="phone-err" required>
+          <div class="err" id="phone-err" role="alert"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Email <span class="opt">(optional)</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" aria-describedby="email-err">
+        <div class="err" id="email-err" role="alert"></div>
+      </div>
+    </section>
+
+    <!-- B. Money -->
+    <section class="card">
+      <h2>Your numbers</h2>
+      <p class="sub">Rough figures are fine. Nothing is shared outside our team.</p>
+
+      <div class="field">
+        <label for="exp">Monthly household expenses <span class="req" aria-hidden="true">*</span></label>
+        <div class="money"><span class="rs" aria-hidden="true">₹</span>
+          <input id="exp" name="monthly_expenses" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 80000" aria-describedby="exp-hint exp-live exp-err" required></div>
+        <div class="hint" id="exp-hint">Rent, EMIs, groceries, school fees, bills: everything that goes out each month.</div>
+        <div class="live" id="exp-live" aria-live="polite"></div>
+        <div class="err" id="exp-err" role="alert"></div>
+      </div>
+
+      <div class="field">
+        <label for="inc">Your income <span class="req" aria-hidden="true">*</span></label>
+        <div class="money"><span class="rs" aria-hidden="true">₹</span>
+          <input id="inc" name="income" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 200000" aria-describedby="inc-live inc-err" required></div>
+        <div class="live" id="inc-live" aria-live="polite"></div>
+        <div class="err" id="inc-err" role="alert"></div>
+      </div>
+
+      <fieldset class="field">
+        <legend>The income above is</legend>
+        <div class="pills c2">
+          <label class="pill"><input type="radio" name="income_type" value="Monthly" checked><span>Per month</span></label>
+          <label class="pill"><input type="radio" name="income_type" value="Annual"><span>Per year</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="corpus">Savings you could use today <span class="req" aria-hidden="true">*</span></label>
+        <div class="money"><span class="rs" aria-hidden="true">₹</span>
+          <input id="corpus" name="current_corpus" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 1500000" aria-describedby="corpus-hint corpus-live corpus-err" required></div>
+        <div class="hint" id="corpus-hint">Bank balance, FDs, mutual funds, stocks, gold. Enter 0 if none.</div>
+        <div class="live" id="corpus-live" aria-live="polite"></div>
+        <div class="err" id="corpus-err" role="alert"></div>
+      </div>
+    </section>
+
+    <!-- C. Gut feeling + optional -->
+    <section class="card">
+      <h2>Your gut feeling</h2>
+
+      <fieldset class="field" id="guessSet">
+        <legend>If your income stopped today, how long could your family carry on as usual? <span class="req" aria-hidden="true">*</span></legend>
+        <div class="pills c3">
+          <label class="pill"><input type="radio" name="expected_survival" value="3 months" data-months="3"><span>3 months</span></label>
+          <label class="pill"><input type="radio" name="expected_survival" value="6 months" data-months="6"><span>6 months</span></label>
+          <label class="pill"><input type="radio" name="expected_survival" value="1 year" data-months="12"><span>1 year</span></label>
+          <label class="pill"><input type="radio" name="expected_survival" value="5 years" data-months="60"><span>5 years</span></label>
+          <label class="pill"><input type="radio" name="expected_survival" value="10 years" data-months="120"><span>10 years</span></label>
+          <label class="pill"><input type="radio" name="expected_survival" value="Whole life" data-months="inf"><span>Whole life</span></label>
+        </div>
+        <div class="err" id="guess-err" role="alert"></div>
+      </fieldset>
+
+      <div class="sep"></div>
+
+      <fieldset class="field">
+        <legend>Do you have term insurance today? <span class="opt">(optional)</span></legend>
+        <div class="pills c3">
+          <label class="pill"><input type="radio" name="has_term_insurance" value="Yes"><span>Yes</span></label>
+          <label class="pill"><input type="radio" name="has_term_insurance" value="No"><span>No</span></label>
+          <label class="pill"><input type="radio" name="has_term_insurance" value="Not sure"><span>Not sure</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="goal">Your main money goal <span class="opt">(optional)</span></label>
+        <select id="goal" name="main_goal">
+          <option value="">Select</option>
+          <option value="Protect my family">Protect my family</option>
+          <option value="Retirement">Retirement</option>
+          <option value="Child education">Child education</option>
+          <option value="Own a home">Own a home</option>
+          <option value="Wealth creation">Wealth creation</option>
+          <option value="Not sure yet">Not sure yet</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- D. Consent + submit -->
+    <section class="card">
+      <label class="consent" for="consent">
+        <input type="checkbox" id="consent" name="consent" value="Yes" aria-describedby="consent-err" required>
+        <span>I agree that Vrisa Artha Mantra Pvt. Ltd. may use these details to show my result and to contact me about financial planning.</span>
+      </label>
+      <div class="err" id="consent-err" role="alert"></div>
+      <button type="submit" class="btn" id="submitBtn">Show my reality check <span aria-hidden="true">→</span></button>
+      <p class="fine">Takes under 2 minutes. Your result appears instantly.</p>
+    </section>
+
+    <!-- Hidden fields: the script fills these so every calculated number is saved with the lead -->
+    <input type="hidden" name="lead_source" value="Financial Awareness Stall - Vashi Oct 2026">
+    <input type="hidden" name="submission_id">
+    <input type="hidden" name="submission_timestamp">
+    <input type="hidden" name="submission_local_time">
+    <input type="hidden" name="actual_survival_months">
+    <input type="hidden" name="survival_text">
+    <input type="hidden" name="guess_result">
+    <input type="hidden" name="annual_income_used">
+    <input type="hidden" name="protection_cover">
+    <input type="hidden" name="target_corpus">
+    <input type="hidden" name="corpus_gap">
+    <input type="hidden" name="sip_5_year">
+    <input type="hidden" name="sip_10_year">
+    <input type="hidden" name="sip_15_year">
+    <input type="hidden" name="sip_20_year">
+    <input type="hidden" name="lumpsum_5_year">
+    <input type="hidden" name="lumpsum_10_year">
+    <input type="hidden" name="lumpsum_15_year">
+    <input type="hidden" name="lumpsum_20_year">
+  </form>
+
+  <!-- =====================================================================
+       STEP 2: THE HOOK + THE CALCULATOR RESULT
+       ===================================================================== -->
+  <main id="step2" hidden>
+
+    <section class="hook" aria-labelledby="hookTitle">
+      <div class="eyebrow">Your reality check</div>
+      <h2 id="hookTitle" tabindex="-1">Let’s check your guess.</h2>
+      <p>You told us how long you think your family could manage without income. Below is what your own numbers say, in three simple parts: how long your savings will last, how much life cover your family may need, and how much money you need so your expenses are covered for life.</p>
+    </section>
+
+    <!-- 1. Runway -->
+    <article class="card">
+      <div class="rtag"><span class="n">1</span> How long your savings will last</div>
+      <div class="big" id="rRunway">–</div>
+      <p class="muted">If your income stops today, your savings can pay your monthly expenses for this long. (We have not added any interest earned or rise in prices.)</p>
+      <div class="tiles">
+        <div class="tile"><span class="tl">Your guess</span><strong id="rGuess">–</strong></div>
+        <div class="tile"><span class="tl">Your actual numbers</span><strong id="rReal">–</strong></div>
+      </div>
+      <div class="bar" id="rBarWrap" role="img" aria-label=""><span id="rBar"></span></div>
+      <p class="verdict" id="rVerdict"></p>
+    </article>
+
+    <!-- 2. Protection -->
+    <article class="card">
+      <div class="rtag"><span class="n">2</span> Life cover your family may need</div>
+      <div class="big teal" id="rCover">–</div>
+      <p class="muted" id="rCoverNote"></p>
+      <p class="verdict" id="rTerm" hidden></p>
+    </article>
+
+    <!-- 3. Whole-life corpus -->
+    <article class="card">
+      <div class="rtag"><span class="n">3</span> Money needed to cover your expenses for life</div>
+      <div class="pair">
+        <div><div class="lbl">Total money needed (25 × your yearly expenses)</div><div class="big mid good" id="rTarget">–</div></div>
+        <div><div class="lbl">Still needed after your savings(Approx.)</div><div class="big mid short" id="rGap">–</div></div>
+      </div>
+      <p class="muted" style="margin-top:12px">How you could build the remaining amount, <span class="assume">if money grows 12% a year</span></p>
+      <div class="tablewrap" id="rPlanWrap">
+        <table>
+          <thead><tr><th scope="col">Time</th><th scope="col">Invest every month (SIP)</th><th scope="col">Lumpsum</th></tr></thead>
+          <tbody id="rPlan"></tbody>
+        </table>
+      </div>
+      <p class="callout" id="rCovered" hidden>Good news: your savings are already more than this amount. ✓</p>
+      <p class="muted" id="rPlanNote" style="margin-top:10px">12% a year is only an example rate to explain the idea. It is not promised. Actual returns can be lower, or even negative. Rise in prices and tax are not counted.</p>
+    </article>
+
+    <!-- CTA -->
+    <article class="card cta">
+      <h2>Want to understand these numbers better?</h2>
+      <p>Our qualified personal finance professionals can explain what these numbers mean for your family. No cost, no obligation.</p>
+      <p class="status" id="saveStatus" role="status" aria-live="polite"></p>
+    </article>
+  </main>
+
+  <p class="disc">
+    This calculator is for awareness and illustration only and is not investment advice or a personalised recommendation.
+    12% p.a. is an assumed rate, not a guaranteed or promised return. Inflation and taxes are not considered.
+    Mutual Fund investments are subject to market risks; read all scheme related documents carefully.
+    Vrisa Artha Mantra Pvt. Ltd. is an AMFI-registered Mutual Fund Distributor (ARN-272960).
+  </p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------
+     SETTINGS
+     ------------------------------------------------------------------ */
+  var RATE = 0.12;                 // assumed rate, illustration only
+  var HORIZONS = [5, 10, 15, 20];  // years
+  var PENDING_KEY = 'vam_pending_survey_v1';
+
+  /* ------------------------------------------------------------------
+     HELPERS
+     ------------------------------------------------------------------ */
+  var $ = function (id) { return document.getElementById(id); };
+  var form = $('surveyForm');
+  var submitBtn = $('submitBtn');
+  var busy = false;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var nf = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
+  function inr(n) { return '₹' + nf.format(Math.round(n)); }          // ₹32,40,000
+  function tidy(x) { return String(Math.round(x * 100) / 100); }
+  function words(n) {                                                   // 32.4 Lakh
+    n = Math.round(n);
+    if (n >= 1e7) return tidy(n / 1e7) + ' Crore';
+    if (n >= 1e5) return tidy(n / 1e5) + ' Lakh';
+    if (n >= 1e3) return tidy(n / 1e3) + ' Thousand';
+    return '';
+  }
+  function inrWords(n) { var w = words(n); return inr(n) + (w ? ' (' + w + ')' : ''); }  // ₹32,40,000 (32.4 Lakh)
+
+  // Big figure: "₹32,40,000" with "32.4 Lakh" on the line below
+  function setAmount(el, n) {
+    while (el.firstChild) el.removeChild(el.firstChild);
+    el.appendChild(document.createTextNode(inr(n)));
+    var w = words(n);
+    if (w) {
+      var s = document.createElement('span');
+      s.className = 'amt-words';
+      s.textContent = w;
+      el.appendChild(s);
+    }
+  }
+  // Table cell: amount with words in small text underneath
+  function amountCell(n, bold) {
+    var td = document.createElement('td');
+    var main = document.createElement(bold ? 'b' : 'span');
+    main.textContent = inr(n);
+    td.appendChild(main);
+    var w = words(n);
+    if (w) {
+      var s = document.createElement('span');
+      s.className = 'amt-inline';
+      s.textContent = w;
+      td.appendChild(s);
+    }
+    return td;
+  }
+
+  function digits(s) { return String(s == null ? '' : s).replace(/\D/g, ''); }
+  function toNum(s) { return Number(digits(s)) || 0; }
+  function setHidden(name, value) { var el = form.elements[name]; if (el) el.value = value; }
+
+  function duration(m) {
+    if (!isFinite(m) || m < 0) return '–';
+    if (m < 1) return Math.max(0, Math.round(m * 30)) + ' days';
+    if (m < 11.95) {
+      var v = Math.round(m * 10) / 10;
+      return (v % 1 === 0 ? String(v) : v.toFixed(1)) + (v === 1 ? ' month' : ' months');
+    }
+    var total = Math.round(m), y = Math.floor(total / 12), mo = total % 12;
+    if (y > 100) return '100+ years';
+    return y + (y === 1 ? ' year' : ' years') + (mo ? ' ' + mo + (mo === 1 ? ' month' : ' months') : '');
+  }
+
+  function uid() {
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    return Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+  }
+
+  /* ------------------------------------------------------------------
+     LIVE AMOUNT HELPERS  (numbers only + "₹80,000 · 80 Thousand")
+     ------------------------------------------------------------------ */
+  ['exp', 'inc', 'corpus'].forEach(function (id) {
+    var el = $(id), live = $(id + '-live');
+    el.addEventListener('input', function () {
+      var d = digits(el.value).slice(0, 11);
+      if (d.length > 1) d = d.replace(/^0+/, '') || '0';
+      el.value = d;
+      if (d === '') { live.textContent = ''; return; }
+      var n = Number(d), w = words(n);
+      live.textContent = inr(n) + (w ? ' · ' + w : '');
+    });
+  });
+
+  $('phone').addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/[^\d+\s]/g, '');
+  });
+
+  /* ------------------------------------------------------------------
+     VALIDATION  (custom, so no hidden-field browser errors)
+     ------------------------------------------------------------------ */
+  function setErr(id, msg) {
+    var box = $(id + '-err'); if (box) box.textContent = msg;
+    var el = $(id); if (el) el.setAttribute('aria-invalid', 'true');
+  }
+  function clearErr(id) {
+    var box = $(id + '-err'); if (box) box.textContent = '';
+    var el = $(id); if (el) el.removeAttribute('aria-invalid');
+  }
+  form.addEventListener('input', function (e) { if (e.target.id) clearErr(e.target.id); });
+  form.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.name === 'expected_survival') clearErr('guess');
+    else if (t.name === 'consent') clearErr('consent');
+    else if (t.id) clearErr(t.id);
+  });
+
+  function normPhone(raw) {
+    var s = String(raw || '').trim(), d = digits(s);
+    if (s.charAt(0) === '+' && s.indexOf('+91') !== 0) {          // overseas / NRI number
+      return d.length >= 8 && d.length <= 15 ? '+' + d : '';
+    }
+    if (d.length === 12 && d.indexOf('91') === 0) d = d.slice(2);
+    else if (d.length === 11 && d.charAt(0) === '0') d = d.slice(1);
+    return /^[6-9]\d{9}$/.test(d) ? d : '';
+  }
+
+  function validate() {
+    var first = null;
+    function fail(id, msg, focusEl) { setErr(id, msg); if (!first) first = focusEl || $(id); }
+    ['owner', 'fullName', 'phone', 'email', 'exp', 'inc', 'corpus', 'guess', 'consent'].forEach(clearErr);
+
+    if (!$('owner').value) fail('owner', 'Please choose the team member.');
+
+    var name = $('fullName').value.trim().replace(/\s+/g, ' ');
+    if (name.length < 2) fail('fullName', 'Please enter your full name.');
+
+    var ph = normPhone($('phone').value);
+    if (!ph) fail('phone', 'Please enter a valid mobile number.');
+
+    var em = $('email').value.trim();
+    if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) fail('email', 'This email looks incomplete.');
+
+    if (!(toNum($('exp').value) > 0)) fail('exp', 'Please enter your monthly expenses.');
+    if (!(toNum($('inc').value) > 0)) fail('inc', 'Please enter your income.');
+    if ($('corpus').value === '') fail('corpus', 'Please enter your savings (0 if none).');
+
+    if (!form.querySelector('input[name="expected_survival"]:checked')) {
+      fail('guess', 'Please pick your best guess.', form.querySelector('input[name="expected_survival"]'));
+    }
+    if (!$('consent').checked) fail('consent', 'Please tick the box to continue.');
+
+    if (first) {
+      first.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+      try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
+      return false;
+    }
+    // tidy what gets saved
+    $('fullName').value = name;
+    $('phone').value = ph;
+    $('email').value = em;
+    $('exp').value = String(toNum($('exp').value));
+    $('inc').value = String(toNum($('inc').value));
+    $('corpus').value = String(toNum($('corpus').value));
+    return true;
+  }
+
+  /* ------------------------------------------------------------------
+     CALCULATIONS
+     ------------------------------------------------------------------ */
+  function readValues() {
+    var g = form.querySelector('input[name="expected_survival"]:checked');
+    var t = form.querySelector('input[name="has_term_insurance"]:checked');
+    return {
+      name: $('fullName').value,
+      expenses: toNum($('exp').value),
+      income: toNum($('inc').value),
+      incomeType: form.querySelector('input[name="income_type"]:checked').value,
+      corpus: toNum($('corpus').value),
+      guessLabel: g.value,
+      guessMonths: g.getAttribute('data-months') === 'inf' ? Infinity : Number(g.getAttribute('data-months')),
+      term: t ? t.value : ''
+    };
+  }
+
+  function compute(v) {
+    var annualIncome = v.incomeType === 'Annual' ? v.income : v.income * 12;
+    var months = v.corpus / v.expenses;              // savings ÷ monthly expenses
+    var cover = annualIncome * 15;                   // annual income × 15
+    var target = v.expenses * 12 * 25;               // 25 × yearly expenses
+    var gap = Math.max(0, target - v.corpus);
+    var r = RATE / 12;
+    var plans = HORIZONS.map(function (y) {
+      var n = y * 12;
+      var fv = ((Math.pow(1 + r, n) - 1) / r) * (1 + r);      // SIP invested at start of each month
+      return { years: y, sip: gap / fv, lump: gap / Math.pow(1 + RATE, y) };
+    });
+    var wholeLife = !isFinite(v.guessMonths);
+    var met = wholeLife ? v.corpus >= target : months >= v.guessMonths;
+    var pct = wholeLife ? (v.corpus / target) * 100 : (months / v.guessMonths) * 100;
+    return { annualIncome: annualIncome, months: months, cover: cover, target: target, gap: gap,
+             plans: plans, wholeLife: wholeLife, met: met, pct: pct };
+  }
+
+  function fillHidden(c) {
+    var now = new Date();
+    setHidden('submission_id', uid());
+    setHidden('submission_timestamp', now.toISOString());
+    setHidden('submission_local_time', now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+    setHidden('actual_survival_months', c.months.toFixed(2));
+    setHidden('survival_text', duration(c.months));
+    setHidden('guess_result', c.met ? 'Met or exceeded guess' : 'Short of guess');
+    setHidden('annual_income_used', Math.round(c.annualIncome));
+    setHidden('protection_cover', Math.round(c.cover));
+    setHidden('target_corpus', Math.round(c.target));
+    setHidden('corpus_gap', Math.round(c.gap));
+    c.plans.forEach(function (p) {
+      setHidden('sip_' + p.years + '_year', Math.round(p.sip));
+      setHidden('lumpsum_' + p.years + '_year', Math.round(p.lump));
+    });
+  }
+
+  /* ------------------------------------------------------------------
+     STEP 2 RENDER
+     ------------------------------------------------------------------ */
+  function pctPhrase(p) { return p < 1 ? 'less than 1%' : 'about ' + Math.round(Math.min(p, 100)) + '%'; }
+
+  function render(v, c) {
+    var first = v.name.split(' ')[0];
+    first = first.charAt(0).toUpperCase() + first.slice(1);
+    $('hookTitle').textContent = first + ', you guessed “' + v.guessLabel + '”. Let’s check it.';
+
+    // 1. runway
+    var runway = $('rRunway');
+    runway.textContent = duration(c.months);
+    runway.className = 'big ' + (c.met ? 'good' : 'short');
+    $('rGuess').textContent = v.guessLabel;
+    $('rReal').textContent = duration(c.months);
+
+    var bar = $('rBar');
+    bar.className = c.met ? 'good' : '';
+    bar.style.width = '0%';
+    var w = Math.max(2, Math.min(100, c.pct)) + '%';
+    if (reduceMotion) bar.style.width = w;
+    else requestAnimationFrame(function () { requestAnimationFrame(function () { bar.style.width = w; }); });
+
+    var verdict;
+    if (c.wholeLife) {
+      verdict = c.met ? 'Well done. Your savings are already more than the lifetime amount shown in part 3.'
+                      : 'Your savings are only ' + pctPhrase(c.pct) + ' of the lifetime amount shown in part 3.';
+    } else {
+      verdict = c.met ? 'Well done. Your savings last as long as you guessed, or longer. Now see the bigger picture below.'
+                      : 'Your savings last only ' + pctPhrase(c.pct) + ' of the time you guessed.';
+    }
+    $('rVerdict').textContent = verdict;
+    $('rBarWrap').setAttribute('aria-label', verdict);
+
+    // 2. protection
+    setAmount($('rCover'), c.cover);
+    $('rCoverNote').textContent = 'How we got this: your yearly income ' + inrWords(c.annualIncome) +
+      ' × 15. This is a common thumb rule. Term insurance is one simple way families get this cover. This is only an example, not a personal recommendation.';
+    var termMsg = { 'Yes': 'You already have term insurance. It is worth checking if your cover is close to this amount.',
+                    'No': 'You don’t have term insurance yet. This is an important number to talk about.',
+                    'Not sure': 'Not sure about your cover? A quick check of your policy is a good first step.' }[v.term] || '';
+    $('rTerm').textContent = termMsg;
+    $('rTerm').hidden = !termMsg;
+
+    // 3. whole-life corpus
+    setAmount($('rTarget'), c.target);
+    if (c.gap > 0) setAmount($('rGap'), c.gap);
+    else $('rGap').textContent = 'Covered ✓';
+    $('rGap').className = 'big mid ' + (c.gap > 0 ? 'short' : 'good');
+
+    var body = $('rPlan');
+    while (body.firstChild) body.removeChild(body.firstChild);
+    c.plans.forEach(function (p) {
+      var tr = document.createElement('tr');
+      var td = document.createElement('td');
+      td.textContent = p.years + ' years';
+      tr.appendChild(td);
+      tr.appendChild(amountCell(p.sip, true));
+      tr.appendChild(amountCell(p.lump, false));
+      body.appendChild(tr);
+    });
+    $('rPlanWrap').hidden = c.gap <= 0;
+    $('rCovered').hidden = c.gap > 0;
+  }
+
+  /* ------------------------------------------------------------------
+     STEP SWITCHING
+     ------------------------------------------------------------------ */
+  function showStep(n) {
+    form.hidden = n !== 1;
+    $('step2').hidden = n !== 2;
+    $('p1').className = n === 1 ? 'on' : 'done';
+    $('p2').className = n === 2 ? 'on' : '';
+    if (n === 1) $('p1').setAttribute('aria-current', 'step'); else $('p1').removeAttribute('aria-current');
+    if (n === 2) $('p2').setAttribute('aria-current', 'step'); else $('p2').removeAttribute('aria-current');
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    if (n === 2) { try { $('hookTitle').focus({ preventScroll: true }); } catch (e) {} }
+  }
+
+  /* ------------------------------------------------------------------
+     SAVING TO NETLIFY FORMS  (with automatic retry if the network drops)
+     ------------------------------------------------------------------ */
+  function serialize() {
+    var params = new URLSearchParams();
+    new FormData(form).forEach(function (value, key) { params.append(key, value); });
+    params.set('form-name', 'financial-snapshot');
+    return params.toString();
+  }
+
+  function post(body) {
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 15000);
+    return fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body,
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (r) { return r.ok; })
+      .catch(function () { return false; })
+      .then(function (ok) { clearTimeout(timer); return ok; });
+  }
+
+  function loadQ() { try { return JSON.parse(localStorage.getItem(PENDING_KEY) || '[]'); } catch (e) { return []; } }
+  function saveQ(q) { try { localStorage.setItem(PENDING_KEY, JSON.stringify(q.slice(-200))); } catch (e) {} }
+
+  var flushing = false;
+  function flushQ() {
+    if (flushing) return Promise.resolve();
+    var q = loadQ();
+    if (!q.length) return Promise.resolve();
+    flushing = true;
+    var sent = [];
+    return q.reduce(function (chain, item) {
+      return chain.then(function (stop) {
+        if (stop) return true;
+        return post(item).then(function (ok) { if (ok) sent.push(item); return !ok; });
+      });
+    }, Promise.resolve(false)).then(function () {
+      saveQ(loadQ().filter(function (x) { return sent.indexOf(x) === -1; }));
+      flushing = false;
+    });
+  }
+
+  function status(msg) { $('saveStatus').textContent = msg; }
+
+  function save() {
+    status('Saving your response…');
+    var body = serialize();
+    post(body).then(function (ok) {
+      if (ok) { status('✓ Your response has been recorded.'); flushQ(); }
+      else {
+        var q = loadQ(); q.push(body); saveQ(q);
+        status('Your result is ready. We’ll save your response automatically once the internet is back.');
+      }
+    });
+  }
+
+  window.addEventListener('online', flushQ);
+
+  /* ------------------------------------------------------------------
+     SUBMIT
+     ------------------------------------------------------------------ */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (busy) return;
+    if (form.elements['bot-field'] && form.elements['bot-field'].value) return;   // spam bot
+    if (!validate()) return;
+    busy = true;
+    submitBtn.disabled = true;
+
+    var v = readValues();
+    var c = compute(v);
+    fillHidden(c);
+    render(v, c);
+    showStep(2);
+    save();
+  });
+
+  flushQ();   // send anything that was waiting from an earlier offline moment
+})();
+</script>
 </body>
 </html>
